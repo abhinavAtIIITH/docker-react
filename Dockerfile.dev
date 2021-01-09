@@ -1,0 +1,16 @@
+FROM node:alpine
+WORKDIR '/app'
+
+COPY package.json .
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "run","start"]
+
+# docker build -f Dockerfile.dev .  (running from file)
+# docker run -p 3000:3000 b67e431486dcea42dc644c20a61c3d999c1b1b316a28b
+# docker run -p 3000:3000 -v /app/node_modules -v $(pwd):/app b67e431486dcea42dc644c20a61c3d999c1b1b316a28b
+# $(pwd):/app  app is mapped to outside folder pwd. We deleted node_modules on local. so here we are saying always refer to node_module inside container -v /app/node_module. dont map it to local folder
+# we are doing this so that changes made on local folder reflects on the browser
+# docker run -it b67e431486dc npm run test 
